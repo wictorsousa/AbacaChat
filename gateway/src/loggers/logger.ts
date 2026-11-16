@@ -25,13 +25,19 @@ export const logger = {
 
         const lines = [
             `${style.paint(style.title)}`,
+            formatField(style, "requestId", context.requestId),
+            formatField(style, "serviceName", context.serviceName),
+            formatField(style, "clientIp", context.clientIp),
+            formatField(style, "protocol", context.protocol),
+            formatField(style, "userAgent", context.userAgent),
             formatField(style, "method", context.method),
             formatField(style, "route", context.route),
             formatField(style, "destination", context.destination),
             formatField(style, "status", `${response.status} ${response.statusText}`),
             formatField(style, "message", response.message),
             formatField(style, "duration", `${context.duration}ms`),
-            formatField(style, "timestamp", response.timestamp)
+            formatField(style, "timestamp", response.timestamp),
+            `${chalk.bold.white("Headers:")} ${colorizeJson(context.headers)}`
         ];
 
         if (hasData) {

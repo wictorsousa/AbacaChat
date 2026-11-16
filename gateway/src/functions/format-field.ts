@@ -1,10 +1,15 @@
 import chalk from "chalk";
-import { getRequestStyle } from "../loggers/styles/request-style";
-import type { RequestFieldKey } from "../loggers/styles/request-style";
+import { getRequestStyle } from "../loggers/styles/request-style.ts";
+import type { RequestFieldKey } from "../loggers/styles/request-style.ts";
 
 type RequestStyle = ReturnType<typeof getRequestStyle>;
 
 const FIELD_LABELS: Record<RequestFieldKey, string> = {
+    requestId: "Request ID",
+    serviceName: "Service",
+    clientIp: "Client IP",
+    protocol: "Protocol",
+    userAgent: "User Agent",
     method: "Method",
     route: "Route",
     destination: "Destination",

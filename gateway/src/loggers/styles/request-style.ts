@@ -2,6 +2,11 @@ import chalk from "chalk";
 import { TypeOfRequest } from "../../enums/type-of-request-enum.ts";
 
 export type RequestFieldKey =
+    | "requestId"
+    | "serviceName"
+    | "clientIp"
+    | "userAgent"
+    | "protocol"
     | "method"
     | "route"
     | "destination"
@@ -37,6 +42,11 @@ export const requestStyles: Record<TypeOfRequest, RequestStyle> = {
         title: "REQUEST APPROVED",
         paint: chalk.green,
         value: {
+            requestId: chalk.blueBright,
+            serviceName: chalk.magentaBright,
+            clientIp: chalk.gray,
+            userAgent: chalk.yellowBright,
+            protocol: chalk.cyan,
             method: chalk.yellow,
             route: chalk.cyan,
             destination: chalk.cyan,
@@ -51,6 +61,11 @@ export const requestStyles: Record<TypeOfRequest, RequestStyle> = {
         title: "REQUEST FAILED",
         paint: chalk.red,
         value: {
+            requestId: chalk.blueBright,
+            serviceName: chalk.magentaBright,
+            clientIp: chalk.gray,
+            userAgent: chalk.yellowBright,
+            protocol: chalk.cyan,
             method: chalk.magenta,
             route: chalk.red,
             destination: chalk.red,
@@ -65,6 +80,11 @@ export const requestStyles: Record<TypeOfRequest, RequestStyle> = {
         title: "REQUEST INFO",
         paint: chalk.yellow,
         value: {
+            requestId: chalk.blueBright,
+            serviceName: chalk.magentaBright,
+            clientIp: chalk.gray,
+            userAgent: chalk.yellowBright,
+            protocol: chalk.cyan,
             method: chalk.cyan,
             route: chalk.cyan,
             destination: chalk.cyan,
