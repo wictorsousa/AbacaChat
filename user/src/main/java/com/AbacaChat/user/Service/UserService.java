@@ -48,7 +48,7 @@ public class UserService {
                 .slug(slug)
                 .build();
 
-        User saved = userRepository.save(user);
+        User saved = userRepository.saveAndFlush(user);
 
         auditPublisher.publish("USER_CREATED", saved.getId(), saved.getId(), Map.of(
                 "handle", saved.getHandle(),
@@ -77,7 +77,7 @@ public class UserService {
         if (req.pronouns() != null)
             user.setPronouns(req.pronouns());
 
-        User updated = userRepository.save(user);
+        User updated = userRepository.saveAndFlush(user);
 
         auditPublisher.publish("USER_UPDATED", updated.getId(), updated.getId(), Map.of(
                 "nickname", updated.getNickname()));

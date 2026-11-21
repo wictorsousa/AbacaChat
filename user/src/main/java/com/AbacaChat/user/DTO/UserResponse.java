@@ -1,6 +1,5 @@
 package com.AbacaChat.user.DTO;
 
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,8 +30,8 @@ public record UserResponse(
                 user.getGender(),
                 user.getPronouns(),
                 user.getSlug(),
-                "/api/users/" + user.getId() + "/profile",
-                "/api/users/" + user.getId() + "/banner",
+                "/users/" + user.getId() + "/profile",
+                "/users/" + user.getId() + "/banner",
                 user.getCreatedAt(),
                 user.getUpdatedAt());
     }

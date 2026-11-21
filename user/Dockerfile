@@ -4,8 +4,8 @@
 FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
 
-# Instala bash e utilitários para compatibilidade
-RUN apk add --no-cache bash
+# Utilitários necessários para o wrapper do Maven baixar e extrair a distribuição
+RUN apk add --no-cache bash curl unzip
 
 # Copia os arquivos do wrapper e o pom.xml para cache das dependências
 COPY .mvn/ .mvn/
@@ -14,8 +14,8 @@ COPY mvnw pom.xml ./
 # Garante terminação LF e permissão de execução
 RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
 
-# Baixa as dependências offline (camada de cache)
-RUN ./mvnw dependency:go-offline -B || true
+# Baixa as dependências (camada de cache)
+RUN ./mvnw dependency:go-offline -B
 
 # Copia o código-fonte
 COPY src ./src
@@ -38,11 +38,11 @@ RUN chown -R appuser:appgroup /app
 
 USER appuser:appgroup
 
-# Porta exposta do microserviço
+# Porta padrão do microsserviço (sobrescrita por SERVER_PORT via ambiente)
+ENV SERVER_PORT=3000
 EXPOSE 3000
 
 # Parâmetros de JVM otimizados para container
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
-
