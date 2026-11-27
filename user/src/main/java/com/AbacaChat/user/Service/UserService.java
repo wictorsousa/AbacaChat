@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final FollowingRepository followingRepository;
     private final AuditEventPublisher auditPublisher;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public UserResponse create(UserCreateRequest req) {
@@ -41,7 +43,7 @@ public class UserService {
                 .nickname(req.nickname())
                 .handle(req.handle())
                 .email(req.email())
-                .password(req.password()) // Em produção, aplicar hash (BCrypt)
+                .password(passwordEncoder.encode(req.password()))
                 .description(req.description())
                 .gender(req.gender())
                 .pronouns(req.pronouns())
